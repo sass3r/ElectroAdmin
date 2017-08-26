@@ -1,6 +1,8 @@
 # ElectroInscripciones
 
-##components
-'''
-https://ng-bootstrap.github.io/#/home
-'''
+## components
+"""
+ng Bootstrap 4: https://ng-bootstrap.github.io/#/home
+Angular Firebase: https://github.com/angular/angularfire2
+
+"""
