@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,10 @@ export class AppComponent {
   title = 'app';
   closeResult: string;
   
-  constructor(private modalService: NgbModal) {}
+  items: FirebaseListObservable<any[]>;
+  constructor(private modalService: NgbModal, db: AngularFireDatabase) {
+    this.items = db.list('/items');
+  }
 
   open(content) {
     this.modalService.open(content).result.then((result) => {

@@ -37,6 +37,12 @@
 
 <hr>
 
+<ul>
+  <li class="text" *ngFor="let item of items | async">
+    {{item.$value}}
+  </li>
+</ul>
+
 <pre>{{closeResult}}</pre>
 
 <router-outlet></router-outlet>
