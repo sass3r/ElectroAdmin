@@ -6,7 +6,10 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './common/header/header.component';
+import { ListSubjectsComponent } from './list-subjects/list-subjects.component';
+import { SubjectComponent } from './list-subjects/subject/subject.component';
 
 export const environment = {
   production: false,
@@ -22,7 +25,10 @@ export const environment = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    ListSubjectsComponent,
+    SubjectComponent
   ],
   imports: [
     BrowserModule,
