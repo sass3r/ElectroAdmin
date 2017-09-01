@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './common/header/header.component';
 import { ListSubjectsComponent } from './list-subjects/list-subjects.component';
 import { SubjectComponent } from './list-subjects/subject/subject.component';
+import { LoginComponent } from './login/login.component';
 
 export const environment = {
   production: false,
@@ -28,7 +29,8 @@ export const environment = {
     AppComponent,
     HeaderComponent,
     ListSubjectsComponent,
-    SubjectComponent
+    SubjectComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
