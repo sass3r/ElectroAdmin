@@ -1,1 +1,11 @@
-<p>Subject Work</p>
+<h2>{{ (subject | async)?.name }}</h2>
+
+<div class="form-check" *ngFor="let item of (subject | async)?.groups">
+    <label (click)="setGroup(item)" class="form-check-label">
+        <input class="form-check-input" type="radio" name="radioGroup" id="exampleRadios1" [value]="item.number" checked>
+        <p> {{item.number}} - {{item.docentName}} -{{item.schedule}}</p>
+    </label>
+</div>
+
+<p>{{selectedGroup | json}}</p>
+    
