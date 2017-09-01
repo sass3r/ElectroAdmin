@@ -13,9 +13,13 @@ const routes: Routes = [
     {
         path: 'subjects',
         component: ListSubjectsComponent,
-        children: [
-            { path: ':key', component: SubjectComponent }
-        ]
+        // children: [
+        //     { path: ':key', component: SubjectComponent }
+        // ]
+    },
+    {
+        path: 'subjects/:key',
+        component: SubjectComponent,
     }
 
 ];
