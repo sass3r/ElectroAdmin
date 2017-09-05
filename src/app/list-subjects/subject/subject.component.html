@@ -1,18 +1,19 @@
 <div class="panel-heading">
     <div class="panel-title">
-        <h1>{{ (subject | async)?.name }}</h1>
+        <h1>{{ (name | async)?.$value }}</h1>
     </div>
 </div>
-
+<p>{{limitInscribed | json}} | {{key}}</p>
 <div class="panel-body">
-    <div class="form-check" *ngFor="let item of (subject | async)?.groups">
-        <label (click)="setGroup(item)" class="form-check-label">
-            <input class="form-check-input" type="radio" name="radioGroup" id="exampleRadios1" [value]="item.number" checked>
-            <p> {{item.number}} - {{item.docentName}} -{{item.schedule}}</p>
-        </label>
-        <hr>
+    <div class="form-check" *ngFor="let item of groups | async">
+        <div *ngIf="size(item) < limitInscribed">
+            <label (click)="setGroup(item.$key)" class="form-check-label">
+                <input class="form-check-input" type="radio" name="radioGroup" id="exampleRadios1" [value]="item.number">
+                <p> {{item.number}} - {{item.docentName}} -{{item.schedule}} </p>
+            </label>
+            <hr>
+        </div>
     </div>
 </div>
 
-<p>{{selectedGroup | json}}</p>
-            
+<button (click)="fakeSuscribe()">Inscribir Moock</button>

@@ -8,18 +8,79 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
     styleUrls: ['./subject.component.sass']
 })
 export class SubjectComponent implements OnInit {
-    selectedGroup: any  = {};
-    subject: FirebaseObjectObservable<any>;
+    inscribed: FirebaseListObservable<any>;
+    groups: FirebaseListObservable<any[]>;
+    name: FirebaseObjectObservable<any>;
+    limit: FirebaseObjectObservable<any>;
+    key: String;
+    limitInscribed: number = 0;
+    overloadGroup: boolean = false;
     constructor(private router: Router, private route: ActivatedRoute, private db: AngularFireDatabase) {
-        let key = this.route.snapshot.paramMap.get('key');
-        this.subject = db.object(`/laboratorios/${key}`);
+        this.key = this.route.snapshot.paramMap.get('key');
+        this.name = db.object(`/laboratorios/${this.key}/name`);
+        this.groups = db.list(`/laboratorios/${this.key}/groups`);
+        this.limit = db.object(`/laboratorios/${this.key}/limit`);
+        this.limit.subscribe(
+            (data)=>{
+                if(!data.$exists()){
+                    this.limit.update({limit: 4});
+                    this.limitInscribed = 4;
+                }
+                else{
+                    this.limitInscribed = data.limit;
+                }
+            }
+        );
     }
-
+    
     ngOnInit() {
+        this.verifyLimit();
     }
 
-    setGroup(group){
-        this.selectedGroup = group;
+    setGroup(keyI){
+        this.inscribed = this.db.list(`/laboratorios/${this.key}/groups/${keyI}/inscritos`);
+    }
+
+    getRandomInt() {
+        let min = 200000000;
+        let max = 201799999;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    verifyLimit(){
+        this.groups.subscribe(
+            (value)=>{
+                for(let item of value){
+                    this.overloadGroup = this.overloadGroup || (this.getSize(item.inscritos) < this.limitInscribed);
+                }
+                if(!this.overloadGroup){
+                    this.limitInscribed +=2;
+                    this.limit.update({limit: this.limitInscribed});
+                }
+                console.log(this.overloadGroup);
+            }
+        );
+    }
+
+    size(item){
+        let size = 0;
+        if(item.inscritos != undefined){
+            size = this.getSize(item.inscritos);
+        }
+        return size;
+    }
+
+    getSize(list){
+        let size: number =0;
+        for(let item in list){
+            size+=1;
+        }
+        return size;
+    }
+
+    fakeSuscribe(){
+        let fakeSys = this.getRandomInt();
+        this.inscribed.push(fakeSys);
     }
 
 }
