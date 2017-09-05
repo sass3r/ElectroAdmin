@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../../modal/modal.component';
 
 @Component({
@@ -110,7 +110,9 @@ export class SubjectComponent implements OnInit {
                     let codsys = student.codsys;
                     if(codsys == this.testcod){
                         this.inscribed.push(codsys);
-                        this.openModal('Congratulations!!!');
+                        this.openModal('Exitoso!!!');
+                    }else{
+                        this.openModal('Error!!!');
                     }
                 }
             }

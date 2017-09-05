@@ -34,6 +34,7 @@ export const environment = {
         ModalComponent,
         LoginComponent
     ],
+    entryComponents: [ModalComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
