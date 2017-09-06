@@ -20,9 +20,10 @@ export class SubjectComponent implements OnInit {
     limitInscribed: number = 0;
     overloadGroup: boolean = false;
 
+    
     //testcod = "201508245";
     //testcod = "201001274";
-    testcod = "201208143";
+    testcod = '201603519';
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class SubjectComponent implements OnInit {
         this.name = db.object(`/laboratorios/${this.key}/name`);
         this.groups = db.list(`/laboratorios/${this.key}/groups`);
 
+       
         this.students$ = db.list(`/laboratorios/${this.key}/students`,{
             query:{
                 orderByChild: 'codsys',
@@ -108,18 +110,35 @@ export class SubjectComponent implements OnInit {
         modalRef.componentInstance.message = msj;
         modalRef.componentInstance.year = 'II-2017';
     }
-
+    
+   
     inscribirme(){
         this.students$.subscribe(
             (data)=>{
-                if(data.length == 0 ){
-                    this.openModal('Usted no puede inscribirse a esta materia.');
-                }else{
-                    //this.inscribed.push(data);
-                    this.inscribed.push(data[0]);
-                    this.openModal('Inscripcion Exitosa.');
-                }
+                this.ins(data);
             }
         );
+    }
+
+    ins(items){
+            //    if(items.length == 0 ){
+            //         this.openModal('Usted no puede.');
+            //     }else{
+            //         if(items[0].status === true){
+            //             console.log(items[0].status);
+            //             this.openModal('Usted ya esta inscrito en alguna materia');
+            //         }else{
+                        
+            //             this.students$.update(items[0].$key, {status:true} );
+            //             this.inscribed.push(items[0]);                        
+            //             this.openModal('Inscripcion Exitosa.');
+            //         }
+            //     }
+                
+                
+                this.students$.update(items[0].$key, {status:true});
+                console.log(`status del est ${items[0].status}`);
+                //console.log(items);
+                // console.log('estoy entrando');
     }
 }
