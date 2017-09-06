@@ -9,6 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ModalComponent implements OnInit {
 
     @Input() message: string;
+    @Input() year: string;
 
     constructor(public activeModal: NgbActiveModal) {}
 

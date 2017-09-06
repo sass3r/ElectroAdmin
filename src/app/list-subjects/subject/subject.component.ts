@@ -106,17 +106,18 @@ export class SubjectComponent implements OnInit {
     openModal(msj){
         const modalRef = this.modalService.open(ModalComponent);
         modalRef.componentInstance.message = msj;
+        modalRef.componentInstance.year = 'II-2017';
     }
 
     inscribirme(){
         this.students$.subscribe(
             (data)=>{
                 if(data.length == 0 ){
-                    this.openModal('Error!!!');
+                    this.openModal('Usted no puede inscribirse a esta materia.');
                 }else{
                     //this.inscribed.push(data);
                     this.inscribed.push(data[0]);
-                    this.openModal('Exitoso!!!');
+                    this.openModal('Inscripcion Exitosa.');
                 }
             }
         );
