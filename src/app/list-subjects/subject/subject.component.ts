@@ -60,7 +60,7 @@ export class SubjectComponent implements OnInit {
         this.selectedGroup = item;
         this.inscribed = this.db.list(`/laboratorios/${this.key}/groups/${keyI}/inscritos`);
     }
-    
+
     verifyLimit(){
         this.groups.subscribe(
             (value)=>{
@@ -99,6 +99,7 @@ export class SubjectComponent implements OnInit {
     }
 
     inscribirme(){
+        this.codsys = sessionStorage.getItem('codsys');
         this.students$.subscribe(
             (data)=>{
                 if(data.length == 0 ){
