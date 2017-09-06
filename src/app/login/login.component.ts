@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
-
-  constructor() { }
+  codsys: string;
+  username: string;
+  constructor() { 
+    this.codsys = sessionStorage.getItem('codsys');
+  }
 
   ngOnInit() {
   }
 
+  setCookie() {
+    sessionStorage.setItem('codsys', this.username);
+    this.codsys = this.username;
+  }
 }

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../../modal/modal.component';
+import { LoginComponent } from '../../login/login.component';
 
 @Component({
     selector: 'app-subject',
@@ -16,13 +17,11 @@ export class SubjectComponent implements OnInit {
     groups: FirebaseListObservable<any[]>;
     name: FirebaseObjectObservable<any>;
     limit: FirebaseObjectObservable<any>;
+    selectedGroup: any;
     key: String;
     limitInscribed: number = 0;
     overloadGroup: boolean = false;
-
-    //testcod = "201508245";
-    //testcod = "201001274";
-    testcod = "201208143";
+    codsys: String;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -31,11 +30,11 @@ export class SubjectComponent implements OnInit {
         this.key = this.route.snapshot.paramMap.get('key');
         this.name = db.object(`/laboratorios/${this.key}/name`);
         this.groups = db.list(`/laboratorios/${this.key}/groups`);
-
+        this.codsys = sessionStorage.getItem('codsys');
         this.students$ = db.list(`/laboratorios/${this.key}/students`,{
             query:{
                 orderByChild: 'codsys',
-                equalTo: this.testcod,
+                equalTo: this.codsys,
             }
         });
 
@@ -57,16 +56,11 @@ export class SubjectComponent implements OnInit {
         this.verifyLimit();
     }
 
-    setGroup(keyI){
+    setGroup(item,keyI){
+        this.selectedGroup = item;
         this.inscribed = this.db.list(`/laboratorios/${this.key}/groups/${keyI}/inscritos`);
     }
-
-    getRandomInt() {
-        let min = 200000000;
-        let max = 201799999;
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
+    
     verifyLimit(){
         this.groups.subscribe(
             (value)=>{
@@ -98,11 +92,6 @@ export class SubjectComponent implements OnInit {
         return size;
     }
 
-    fakeSuscribe(){
-        let fakeSys = this.getRandomInt();
-        this.inscribed.push(fakeSys);
-    }
-
     openModal(msj){
         const modalRef = this.modalService.open(ModalComponent);
         modalRef.componentInstance.message = msj;
@@ -115,7 +104,6 @@ export class SubjectComponent implements OnInit {
                 if(data.length == 0 ){
                     this.openModal('Usted no puede inscribirse a esta materia.');
                 }else{
-                    //this.inscribed.push(data);
                     this.inscribed.push(data[0]);
                     this.openModal('Inscripcion Exitosa.');
                 }

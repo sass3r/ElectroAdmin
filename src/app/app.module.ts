@@ -12,6 +12,7 @@ import { ListSubjectsComponent } from './list-subjects/list-subjects.component';
 import { SubjectComponent } from './list-subjects/subject/subject.component';
 import { LoginComponent } from './login/login.component';
 import { ModalComponent } from './modal/modal.component';
+import { FormsModule }   from '@angular/forms';
 
 export const environment = {
     production: false,
@@ -40,7 +41,8 @@ export const environment = {
         AppRoutingModule,
         AngularFireDatabaseModule,
         AngularFireModule.initializeApp(environment.firebase),
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        FormsModule
     ],
     exports: [NgbModule],
     providers: [],
