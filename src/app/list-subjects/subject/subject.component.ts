@@ -22,6 +22,7 @@ export class SubjectComponent implements OnInit {
     limitInscribed: number = 0;
     overloadGroup: boolean = false;
     codsys: String;
+    studen : any;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -35,6 +36,13 @@ export class SubjectComponent implements OnInit {
             query:{
                 orderByChild: 'codsys',
                 equalTo: this.codsys,
+            }
+        });
+
+        this.students$.subscribe( (data) => {
+            this.studen = data[0];
+            if(data.length == 0){
+                this.openModal('Usted no puede inscribirse.');
             }
         });
 
@@ -99,16 +107,13 @@ export class SubjectComponent implements OnInit {
     }
 
     inscribirme(){
-        this.codsys = sessionStorage.getItem('codsys');
-        this.students$.subscribe(
-            (data)=>{
-                if(data.length == 0 ){
-                    this.openModal('Usted no puede inscribirse a esta materia.');
-                }else{
-                    this.inscribed.push(data[0]);
-                    this.openModal('Inscripcion Exitosa.');
-                }
-            }
-        );
+
+        if(this.studen.status === true){
+            this.openModal('Usted ya esta inscrito en alguna materia');
+        }else{
+            this.students$.update(this.studen.$key, {status:true} );
+            this.inscribed.push(this.studen);
+            this.openModal('Inscripcion Exitosa.');
+        }
     }
 }
