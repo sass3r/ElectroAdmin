@@ -20,7 +20,7 @@ export class SubjectComponent implements OnInit {
     limitInscribed: number = 0;
     overloadGroup: boolean = false;
     studen : any;
-    
+
     testcod = "201508245";
     //testcod = "201001274";
     // testcod = '201208143';
@@ -33,7 +33,6 @@ export class SubjectComponent implements OnInit {
         this.name = db.object(`/laboratorios/${this.key}/name`);
         this.groups = db.list(`/laboratorios/${this.key}/groups`);
 
-       
         this.students$ = db.list(`/laboratorios/${this.key}/students`,{
             query:{
                 orderByChild: 'codsys',
@@ -117,20 +116,16 @@ export class SubjectComponent implements OnInit {
         modalRef.componentInstance.message = msj;
         modalRef.componentInstance.year = 'II-2017';
     }
+
     inscribirme(){
-  
-                    if(this.studen.status === true){
-                        this.openModal('Usted ya esta inscrito en alguna materia');
-                    }else{
-                        this.students$.update(this.studen.$key, {status:true} );
-                        this.inscribed.push(this.studen);                        
-                        this.openModal('Inscripcion Exitosa.');
-                    }
-                
-                
-                // this.students$.update(items[0].$key, {status:true});
-                // console.log(`status del est ${items[0].status}`);
-                //console.log(items);
-                // console.log('estoy entrando');
+
+        if(this.studen.status === true){
+            this.openModal('Usted ya esta inscrito en alguna materia');
+        }else{
+            this.students$.update(this.studen.$key, {status:true} );
+            this.inscribed.push(this.studen);
+            this.openModal('Inscripcion Exitosa.');
+        }
+
     }
 }
