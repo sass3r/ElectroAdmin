@@ -20,8 +20,9 @@ export class SubjectComponent implements OnInit {
     limitInscribed: number = 0;
     overloadGroup: boolean = false;
 
-    testcod = 201001274;
-
+    //testcod = "201508245";
+    testcod = "201001274";
+    //testcod = "201208143";
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private db: AngularFireDatabase,
@@ -29,7 +30,18 @@ export class SubjectComponent implements OnInit {
         this.key = this.route.snapshot.paramMap.get('key');
         this.name = db.object(`/laboratorios/${this.key}/name`);
         this.groups = db.list(`/laboratorios/${this.key}/groups`);
-        this.students$ = db.list(`/laboratorios/${this.key}/students`);
+
+        /*****************************************************************/
+       
+        this.students$ = db.list(`/laboratorios/${this.key}/students`,{
+          query:{
+            orderByChild: 'codsys',
+            equalTo: this.testcod,
+          }
+          });
+
+      /******************************************************************/
+
         this.limit = db.object(`/laboratorios/${this.key}/limit`);
         this.limit.subscribe(
             (data)=>{
@@ -98,25 +110,19 @@ export class SubjectComponent implements OnInit {
         const modalRef = this.modalService.open(ModalComponent);
         modalRef.componentInstance.message = msj;
     }
-
+   
     inscribirme(){
-        this.students$.subscribe(
-            (students)=>{
-                if(students.length==0 || !students){
-                    console.log("no students data found");
-                    return false;
-                }
-                for(let student of students) {
-                    let codsys = student.codsys;
-                    if(codsys == this.testcod){
-                        this.inscribed.push(codsys);
-                        this.openModal('Exitoso!!!');
-                    }else{
-                        this.openModal('Error!!!');
-                    }
-                }
-            }
-        );
-    }
-
+        this.students$.subscribe((data)=>{
+           // console.log(data);
+        if(data.length == 0 ){
+            this.openModal('Error!!!');
+            //console.log("Usted no puede inscribirse por que no esta en listas ");
+        }
+        else{
+            this.inscribed.push(data);
+            this.openModal('Exitoso!!!');
+            //console.log("se a inscrito correctamente");    
+        }
+        })
+    } 
 }
