@@ -21,26 +21,23 @@ export class SubjectComponent implements OnInit {
     overloadGroup: boolean = false;
 
     //testcod = "201508245";
-    testcod = "201001274";
-    //testcod = "201208143";
+    //testcod = "201001274";
+    testcod = "201208143";
+
     constructor(private router: Router,
-                private route: ActivatedRoute,
-                private db: AngularFireDatabase,
-                private modalService: NgbModal) {
+        private route: ActivatedRoute,
+        private db: AngularFireDatabase,
+        private modalService: NgbModal) {
         this.key = this.route.snapshot.paramMap.get('key');
         this.name = db.object(`/laboratorios/${this.key}/name`);
         this.groups = db.list(`/laboratorios/${this.key}/groups`);
 
-        /*****************************************************************/
-       
         this.students$ = db.list(`/laboratorios/${this.key}/students`,{
-          query:{
-            orderByChild: 'codsys',
-            equalTo: this.testcod,
-          }
-          });
-
-      /******************************************************************/
+            query:{
+                orderByChild: 'codsys',
+                equalTo: this.testcod,
+            }
+        });
 
         this.limit = db.object(`/laboratorios/${this.key}/limit`);
         this.limit.subscribe(
@@ -55,7 +52,7 @@ export class SubjectComponent implements OnInit {
             }
         );
     }
-    
+
     ngOnInit() {
         this.verifyLimit();
     }
@@ -110,19 +107,18 @@ export class SubjectComponent implements OnInit {
         const modalRef = this.modalService.open(ModalComponent);
         modalRef.componentInstance.message = msj;
     }
-   
+
     inscribirme(){
-        this.students$.subscribe((data)=>{
-           // console.log(data);
-        if(data.length == 0 ){
-            this.openModal('Error!!!');
-            //console.log("Usted no puede inscribirse por que no esta en listas ");
-        }
-        else{
-            this.inscribed.push(data);
-            this.openModal('Exitoso!!!');
-            //console.log("se a inscrito correctamente");    
-        }
-        })
-    } 
+        this.students$.subscribe(
+            (data)=>{
+                if(data.length == 0 ){
+                    this.openModal('Error!!!');
+                }else{
+                    //this.inscribed.push(data);
+                    this.inscribed.push(data[0]);
+                    this.openModal('Exitoso!!!');
+                }
+            }
+        );
+    }
 }
