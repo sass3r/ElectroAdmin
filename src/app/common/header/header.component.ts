@@ -14,4 +14,9 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
     }
 
+    salir(){
+        sessionStorage.removeItem('codsys');
+        
+    }
+
 }

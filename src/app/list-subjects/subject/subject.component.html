@@ -1,8 +1,11 @@
 <div class="panel-heading">
-        <div class="panel-title">
-            <h1>{{ (name | async)?.$value }}</h1>
-        </div>
+    <div class="panel-title">
+        <h1>{{ (name | async)?.$value }}</h1>
     </div>
+    <div class="panel-title">
+        <h4>su codigo: {{ codsys }}</h4>
+    </div>
+</div>
     
     <div class="panel-body">
         <div *ngIf="selectedGroup" class="card">
