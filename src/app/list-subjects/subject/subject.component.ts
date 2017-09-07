@@ -23,6 +23,7 @@ export class SubjectComponent implements OnInit {
     overloadGroup: boolean = false;
     codsys: String;
     studen : any;
+    grup :{};
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -42,8 +43,7 @@ export class SubjectComponent implements OnInit {
         this.students$.subscribe( (data) => {
             this.studen = data[0];
             if(data.length == 0){
-                this.openModal('Usted no esta Inscrito en la materia Teorica');
-                this.volver();
+                this.openModal('Nesecita tomar la materia complementaria');
             }
         });
 
@@ -67,6 +67,7 @@ export class SubjectComponent implements OnInit {
 
     setGroup(item,keyI){
         this.selectedGroup = item;
+        this.grup = {docentName:this.selectedGroup.docentName, number:this.selectedGroup.number,schedule:this.selectedGroup.schedule};
         this.inscribed = this.db.list(`/laboratorios/${this.key}/groups/${keyI}/inscritos`);
     }
 
@@ -77,9 +78,10 @@ export class SubjectComponent implements OnInit {
                     this.overloadGroup = this.overloadGroup || (this.getSize(item.inscritos) < this.limitInscribed);
                 }
                 if(!this.overloadGroup){
-                    this.limitInscribed +=2;
+                    this.limitInscribed +=2;    
                     this.limit.update({limit: this.limitInscribed});
                 }
+                console.log(this.overloadGroup);
             }
         );
     }
@@ -107,16 +109,14 @@ export class SubjectComponent implements OnInit {
     }
 
     inscribirme(){
+
         if(this.studen.status === true){
             this.openModal('Usted ya esta inscrito ');
         }else{
-            this.students$.update(this.studen.$key, {status:true} );
+            this.students$.update(this.studen.$key, {status:true});
+            this.students$.update(this.studen.$key,{grupo:this.grup});
             this.inscribed.push(this.studen);
             this.openModal('Inscripcion Exitosa.');
         }
-    }
-
-    volver(){
-        this.router.navigate(['/subjects']);
     }
 }
