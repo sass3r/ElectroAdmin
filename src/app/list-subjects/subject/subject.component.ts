@@ -42,7 +42,7 @@ export class SubjectComponent implements OnInit {
         this.students$.subscribe( (data) => {
             this.studen = data[0];
             if(data.length == 0){
-                this.openModal('Usted no puede inscribirse.');
+                this.openModal('Nesecita tomar la materia complementaria');
             }
         });
 
@@ -109,7 +109,7 @@ export class SubjectComponent implements OnInit {
     inscribirme(){
 
         if(this.studen.status === true){
-            this.openModal('Usted ya esta inscrito en alguna materia');
+            this.openModal('Usted ya esta inscrito ');
         }else{
             this.students$.update(this.studen.$key, {status:true} );
             this.inscribed.push(this.studen);
