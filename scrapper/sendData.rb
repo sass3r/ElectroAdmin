@@ -45,7 +45,7 @@ class Student
     end
 
     def tojson
-        return "{\"codsys\": \"#{@codsys}\", \"name\": \"#{@name}\", \"carrer\": \"#{@carrer}\"}"
+        return "{\"codsys\": \"#{@codsys}\", \"name\": \"#{@name}\", \"carrer\": \"#{@carrer}\", \"status\": false}"
     end
     attr_accessor :codsys, :name, :carrer
 end
@@ -64,17 +64,18 @@ class Group
 end
 
 def getMatterName(sheet)
-    name = sheet.rows.first['C3']
-    name = name.split('  ').last
+    name = sheet.rows.first['A1']    
+    name = name.split.last
     return name
 end
 
 def getStudents(sheet)
     students = []
-    i = 3
-    sheet.rows.each do |row|
-        student = getStudent(row, i)
-        i+=1
+    index = 4
+    rows = sheet.rows.map{|x| x}    
+    for i in 3..rows.size-1
+        student = getStudent(rows[i], index)
+        index+=1
         students << student
     end
     return students
@@ -82,18 +83,18 @@ end
 
 def getStudent(row,i)
     student = Student.new
-    student.codsys = row['B'+i.to_s]
-    student.name = row['C'+i.to_s]
-    student.carrer = row['D'+i.to_s]
+    student.codsys = row['A'+i.to_s]
+    student.name = row['B'+i.to_s]
+    student.carrer = row['C'+i.to_s]
     return student
 end
 
 def getGroup(sheet)
     sheetGroup = sheet.rows.to_a
     group = Group.new
-    group.docentName = sheetGroup[3]['C4']
-    group.number = sheetGroup[4]['C5']
-    group.schedule = sheetGroup[5]['C6']
+    group.docentName = sheetGroup[2]['B3']
+    group.number = sheetGroup[3]['B4']
+    group.schedule = sheetGroup[4]['B5']
     return group
 end
 
@@ -101,13 +102,12 @@ def getMatter(creek)
     matter = Matter.new
     sheet = creek.sheets[0]
     matter.name = getMatterName(sheet)
-    sheet = creek.sheets[1]
     matter.students = getStudents(sheet)
     matter.groups = []
-    for i in 2..creek.sheets.size
+    for i in 1..creek.sheets.size 
         sheet = creek.sheets[i]
         if creek.sheets[i].nil? == false
-            if creek.sheets[i].name.include? "Grp"
+            if creek.sheets[i].name.include? "grupo"
                 matter.groups << getGroup(sheet)
             end
         end
@@ -115,10 +115,12 @@ def getMatter(creek)
     return matter
 end
 
-creek = Creek::Book.new 'CIRCUITOS2.xlsm'
+excel = ARGV[0];
+name = 'ROBOTICA.xlsx'
+creek = Creek::Book.new excel
 matter = getMatter(creek)
 json = JSON.parse(matter.tojson)
-File.write('circuito.json', json)
+#File.write('circuito.json', json)
 
 #firebase conection and publish
 base_uri = 'https://electroinscripciones.firebaseio.com/'
