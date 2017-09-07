@@ -42,7 +42,8 @@ export class SubjectComponent implements OnInit {
         this.students$.subscribe( (data) => {
             this.studen = data[0];
             if(data.length == 0){
-                this.openModal('Nesecita tomar la materia complementaria');
+                this.openModal('Usted no esta Inscrito en la materia Teorica');
+                this.volver();
             }
         });
 
@@ -79,7 +80,6 @@ export class SubjectComponent implements OnInit {
                     this.limitInscribed +=2;
                     this.limit.update({limit: this.limitInscribed});
                 }
-                console.log(this.overloadGroup);
             }
         );
     }
@@ -107,7 +107,6 @@ export class SubjectComponent implements OnInit {
     }
 
     inscribirme(){
-
         if(this.studen.status === true){
             this.openModal('Usted ya esta inscrito ');
         }else{
@@ -115,5 +114,9 @@ export class SubjectComponent implements OnInit {
             this.inscribed.push(this.studen);
             this.openModal('Inscripcion Exitosa.');
         }
+    }
+
+    volver(){
+        this.router.navigate(['/subjects']);
     }
 }
