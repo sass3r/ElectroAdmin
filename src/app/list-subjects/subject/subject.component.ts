@@ -44,7 +44,7 @@ export class SubjectComponent implements OnInit {
         this.students$.subscribe( (data) => {
             this.studen = data[0];
             if(data.length == 0){
-                this.openModal('Nesecita tomar la materia complementaria');
+                this.openModal('Necesita tomar la materia complementaria');
                 this.volver();
             }
             this.loading = true;
@@ -105,6 +105,10 @@ export class SubjectComponent implements OnInit {
         return size;
     }
 
+    volver() {
+        this.router.navigate(['/subjects']);
+    }
+
     openModal(msj){
         const modalRef = this.modalService.open(ModalComponent);
         modalRef.componentInstance.message = msj;
@@ -121,9 +125,5 @@ export class SubjectComponent implements OnInit {
             this.inscribed.push(this.studen);
             this.openModal('Inscripcion Exitosa.');
         }
-    }
-
-    volver(){
-        this.router.navigate(['/subjects']);
     }
 }
