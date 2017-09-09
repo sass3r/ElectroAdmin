@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
     }
 
     setCookie() {
-        sessionStorage.setItem('codsys', this.username);
-        this.codsys = this.username;
+        sessionStorage.setItem('codsys', this.codsys);
+        //this.codsys = this.username;
         this.router.navigate(['/subjects']);
     }
 }
