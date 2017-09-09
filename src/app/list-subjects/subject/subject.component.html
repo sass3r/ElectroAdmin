@@ -7,15 +7,16 @@
     </div>
 </div>
 
-    <!-- <div *ngIf="studen.status" class="panel-body">
+<div *ngIf="loading">
+    <div *ngIf="studen.status" class="panel-body">
         <div class="card-body">
             <h4>Nombre Docente: {{studen.grupo.docentName}}</h4>
             <h4>Horario: {{studen.grupo.schedule}}</h4>
             <h4>Numero Grupo: {{studen.grupo.number}}</h4>
         </div>
-    </div> -->
+    </div>
 
-    <div class="panel-body">
+    <div  *ngIf="!studen.status" class="panel-body">
         <div *ngIf="selectedGroup" class="card">
             <div class="card-body">
                 {{selectedGroup.schedule}}
@@ -31,9 +32,10 @@
                 </label>
             </div>
         </div>
+        <button type="button" class="btn btn-primary" (click)="inscribirme()">Inscribirme</button>
     </div>
 
 <br>
 
-<button type="button" class="btn btn-primary" (click)="inscribirme()">Inscribirme</button>
 <button type="button" class="btn btn-secondary" (click)="volver()">Ver Materias</button>
+</div>

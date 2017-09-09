@@ -24,6 +24,7 @@ export class SubjectComponent implements OnInit {
     codsys: String;
     studen : any;
     grup :{};
+    loading: boolean =false;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -44,7 +45,9 @@ export class SubjectComponent implements OnInit {
             this.studen = data[0];
             if(data.length == 0){
                 this.openModal('Nesecita tomar la materia complementaria');
+                this.volver();
             }
+            this.loading = true;
         });
 
         this.limit = db.object(`/laboratorios/${this.key}/limit`);
@@ -118,5 +121,9 @@ export class SubjectComponent implements OnInit {
             this.inscribed.push(this.studen);
             this.openModal('Inscripcion Exitosa.');
         }
+    }
+
+    volver(){
+        this.router.navigate(['/subjects']);
     }
 }
