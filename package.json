@@ -23,6 +23,7 @@
     "@angular/router": "^4.0.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.2",
     "angularfire2": "^4.0.0-rc.2",
+    "bower": "^1.8.0",
     "core-js": "^2.4.1",
     "firebase": "^4.3.0",
     "roboto-fontface": "^0.8.0",

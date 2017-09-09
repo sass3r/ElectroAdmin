@@ -1,0 +1,25 @@
+{
+  "name": "electro",
+  "description": "sistema de inscripcion electro",
+  "main": "",
+  "authors": [
+    "Irvin Chav",
+    "Owen Wilson",
+    "Ismael Rosas",
+    "Carlos Caballero",
+    "Alexander Marquez",
+    "Rafael Ramirez."
+  ],
+  "license": "AGPLv3",
+  "homepage": "https://github.com/irvin373/ElectroInscripciones",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "fontawesome#^4.7.0"
+  }
+}
