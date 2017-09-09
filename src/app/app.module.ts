@@ -13,6 +13,7 @@ import { SubjectComponent } from './list-subjects/subject/subject.component';
 import { LoginComponent } from './login/login.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule }   from '@angular/forms';
+import { CustomFormsModule } from 'ng2-validation';
 
 export const environment = {
     production: false,
@@ -42,7 +43,8 @@ export const environment = {
         AngularFireDatabaseModule,
         AngularFireModule.initializeApp(environment.firebase),
         NgbModule.forRoot(),
-        FormsModule
+        FormsModule,
+        CustomFormsModule
     ],
     exports: [NgbModule],
     providers: [],
