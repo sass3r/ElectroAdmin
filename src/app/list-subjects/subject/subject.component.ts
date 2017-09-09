@@ -44,6 +44,7 @@ export class SubjectComponent implements OnInit {
             this.studen = data[0];
             if(data.length == 0){
                 this.openModal('Nesecita tomar la materia complementaria');
+                this.router.navigate(['/subjects']);
             }
         });
 
@@ -100,6 +101,10 @@ export class SubjectComponent implements OnInit {
             size+=1;
         }
         return size;
+    }
+
+    volver() {
+        this.router.navigate(['/subjects']);
     }
 
     openModal(msj){

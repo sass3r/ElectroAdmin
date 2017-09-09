@@ -27,6 +27,18 @@ export const environment = {
     }
 };
 
+/*export const environment = {
+    production: false,
+    firebase: {
+        apiKey: "AIzaSyBcrPwgscpjU001kGZZn7x9Q87eaNJyIzs",
+        authDomain: "dev-elektro.firebaseapp.com",
+        databaseURL: "https://dev-elektro.firebaseio.com",
+        projectId: "dev-elektro",
+        storageBucket: "dev-elektro.appspot.com",
+        messagingSenderId: "194492087044"
+    }
+};*/
+
 @NgModule({
     declarations: [
         AppComponent,
