@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ListSubjectsComponent } from './list-subjects/list-subjects.component';
+import { ListStudentsComponent } from './list-students/list-students.component';
 import { SubjectComponent } from './list-subjects/subject/subject.component';
 import { LoginComponent } from './login/login.component';
 
@@ -20,13 +21,14 @@ const routes: Routes = [
     },
     {
         path: 'subjects/:key',
-        component: SubjectComponent,
-        children: [
-            { path: ':key', component: SubjectComponent }
-        ]
+        component: SubjectComponent
     },{
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'subjects/:key/:group',
+        component: ListStudentsComponent
     }
 
 ];

@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule }   from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
+import { ListStudentsComponent } from './list-students/list-students.component';
 
 export const environment = {
     production: false,
@@ -46,7 +47,8 @@ export const environment = {
         ListSubjectsComponent,
         SubjectComponent,
         ModalComponent,
-        LoginComponent
+        LoginComponent,
+        ListStudentsComponent
     ],
     entryComponents: [ModalComponent],
     imports: [

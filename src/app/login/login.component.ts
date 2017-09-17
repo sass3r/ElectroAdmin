@@ -31,35 +31,10 @@ export class LoginComponent implements OnInit {
         modalRef.componentInstance.year = 'II-2017';
     }
 
-    validate(input) {
-        let out: boolean = false;
-        let str = input;
-        let nu = +input;
-        if(nu) { out = true; }
-        return out;
-    }
-
     setCookie() {
-        if(!(this.validate(this.codsys))) {
-            this.openModal('Error Codsys no es valido');
-            return false;
+        if(this.codsys == "alex" && this.password == "lageovilosabe"){
+            this.router.navigate(['/subjects']);
         }
-        this.isAllowed$ = this.db.list(`allowed`, {
-            query: {
-                orderByChild: 'codsys',
-                equalTo: this.codsys
-            }
-        });
-        this.isAllowed$.subscribe(
-            (data) => {
-                if (!(data.length == 0)) {
-                    //this.openModal('Ingresando');
-                    sessionStorage.setItem('codsys', this.codsys);
-                    this.router.navigate(['/subjects']);
-                }
-                else {this.openModal('Su CodSys es incorrecto');}
-            }
-        );
         //sessionStorage.setItem('codsys', this.codsys);
         //this.codsys = this.username;
         //this.router.navigate(['/subjects']);

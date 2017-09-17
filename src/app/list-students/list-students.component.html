@@ -1,0 +1,23 @@
+<div class="panel-heading">
+  <div class="panel-title">
+      <h2>{{ (name | async)?.$value }}</h2>
+      <h3>Docente: {{(group | async)?.docentName}}</h3>
+      <h3>horario: {{(group | async)?.schedule}}</h3>
+      <h3>Total inscritos: {{inscritos}}</h3>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <th> Alumno </th>
+    <th> codigo </th>
+    <th> carrera </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of students | async">
+      <td>{{item.name}}</td>
+      <td>{{item.codsys}}</td>
+      <td>{{item.carrer}}</td>
+    </tr>
+  </tbody>
+</table>
