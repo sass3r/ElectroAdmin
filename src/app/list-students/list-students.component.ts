@@ -31,9 +31,13 @@ export class ListStudentsComponent implements OnInit {
       )
     }
 
-    contador(){
-      this.cont+=1;
-    }
+  volver() {
+    this.router.navigate([`/subjects/${this.keyMatter}`]);
+  }
+
+  contador(){
+    this.cont+=1;
+  }
 
     ngOnInit() {
     }
